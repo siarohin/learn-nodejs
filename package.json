@@ -1,0 +1,18 @@
+{
+  "name": "learn-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siarohin/learn-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siarohin/learn-nodejs/issues"
+  },
+  "homepage": "https://github.com/siarohin/learn-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
