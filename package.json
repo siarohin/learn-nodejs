@@ -8,10 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/siarohin/learn-nodejs/issues"
+  "scripts": {
+    "task1": "nodemon ./src/task1/index.js"
   },
-  "homepage": "https://github.com/siarohin/learn-nodejs#readme",
   "devDependencies": {
     "nodemon": "^2.0.13"
   }
