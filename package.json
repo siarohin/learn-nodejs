@@ -9,10 +9,14 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "task1": "nodemon ./src/task1/index.js",
-    "task2": "nodemon ./src/task2/index.js"
+    "babel-node": "babel-node --presets=@babel/preset-env",
+    "task1": "nodemon --exec npm run babel-node -- ./src/task1/index.js",
+    "task2": "nodemon --exec npm run babel-node -- ./src/task2/index.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
     "nodemon": "^2.0.13"
   },
   "dependencies": {

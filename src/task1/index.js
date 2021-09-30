@@ -1,3 +1,5 @@
+import process from 'process';
+
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdout.write('Push the value:' + '\n\n');
