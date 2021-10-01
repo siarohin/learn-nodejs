@@ -4,13 +4,13 @@ import * as path from 'path';
 import { csv } from 'csvtojson';
 
 try {
-  const fileName = 'nodejs-hw1-ex1';
-  const filePath = path.resolve(__dirname, `../../csv/${fileName}.csv`);
+  const FILE_NAME = 'nodejs-hw1-ex1';
+  const filePath = path.resolve(__dirname, `../../csv/${FILE_NAME}.csv`);
 
   fs.accessSync(filePath, fs.constants.F_OK);
 
   const readable = fs.createReadStream(filePath);
-  const writable = fs.createWriteStream(path.resolve(__dirname, `../../csv/${fileName}.txt`), 'utf-8');
+  const writable = fs.createWriteStream(path.resolve(__dirname, `../../csv/${FILE_NAME}.txt`), 'utf-8');
 
   const rd = readline.createInterface({
     input: readable.pipe(csv()),

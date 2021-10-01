@@ -10,8 +10,7 @@
   "license": "ISC",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "task1": "nodemon --exec npm run babel-node -- ./src/task1/index.js",
-    "task2": "nodemon --exec npm run babel-node -- ./src/task2/index.js"
+    "start": "nodemon --exec npm run babel-node -- ./src/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
