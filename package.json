@@ -10,12 +10,17 @@
   "license": "ISC",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "start": "nodemon --exec npm run babel-node -- ./src/index.js"
+    "start": "nodemon --exec npm run babel-node -- ./src/index.js",
+    "lint": "eslint -c .eslintrc.js ./src/**/*.js",
+    "lint-fix": "npm run lint --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
+    "@babel/core": "^7.15.8",
+    "@babel/eslint-parser": "^7.15.8",
     "@babel/node": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.2",
     "nodemon": "^2.0.13"
   },
   "dependencies": {
