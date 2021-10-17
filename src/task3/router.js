@@ -2,6 +2,7 @@ import express from 'express';
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import { db } from './db';
+import { validator, userSchema } from './validator';
 import { getUser, updateUsersDB } from './utils';
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.route('/users/:id')
         res.send(user);
     })
     // Update user
-    .put((req, res) => {
+    .put(validator.body(userSchema), (req, res) => {
         const { user: currUser, index } = req.user;
         if (!currUser) {
             return res.status(404).send('Can not find user with such id.');
@@ -54,7 +55,7 @@ router.route('/users')
         res.send(users);
     })
     // Add new user
-    .post((req, res) => {
+    .post(validator.body(userSchema), (req, res) => {
         const user = { ...getUser(req.body), id: nanoid() };
         db.users.push(user);
         res.send(user);
