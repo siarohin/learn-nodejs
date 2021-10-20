@@ -1,3 +1,3 @@
-export * from './get-user.utils';
+export * from './get-user';
 export * from './update-users-db';
 

@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import router from './router';
-import { errorHandler } from './validator';
+import { errorHandler } from './handlers';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
