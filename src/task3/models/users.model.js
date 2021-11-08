@@ -1,5 +1,8 @@
 import { DataTypes } from 'sequelize';
-import { SEQUELIZE } from '../config';
+import { Sequelize } from 'sequelize';
+import { DB_CONNECTION } from '../config';
+
+const SEQUELIZE = new Sequelize(DB_CONNECTION, { logging: false });
 
 export const UsersModel = SEQUELIZE.define('Users', {
     id: {
