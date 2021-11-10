@@ -1,4 +1,4 @@
-export function errorHandler(err, req, res, next) {
+export function errorController(err, req, res, next) {
     if (err && err.error && err.error.isJoi) {
         res.status(404).json({
             type: err.type,
