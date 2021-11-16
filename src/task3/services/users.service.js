@@ -36,7 +36,7 @@ export class UsersService {
 
     update(user) {
         return this.repository.update(user)
-            .then(() => user) // returns updated user instead an id from response
+            .then(() => user) // returns updated user instead of id from response
             .catch(() => {
                 throw new Error('Can not update user');
             });

@@ -1,7 +1,7 @@
 import express from 'express';
 import http from 'http';
 import router from './router';
-import { UsersModel } from './models';
+import { SEQUELIZE } from './config';
 import { errorController } from './controllers';
 
 const app = express();
@@ -12,4 +12,4 @@ app.use('/api/v1', router);
 app.use(errorController);
 http.createServer(app).listen(PORT);
 
-UsersModel.sync();
+SEQUELIZE().sync();

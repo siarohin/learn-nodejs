@@ -1,6 +1,8 @@
 import Joi from 'joi';
 import { createValidator } from 'express-joi-validation';
 
+const PERMISSIONS = ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'];
+
 const validator = createValidator({
     passError: true
 });
@@ -12,4 +14,9 @@ const userSchema = Joi.object({
     isDeleted: Joi.boolean().required()
 });
 
-export { validator, userSchema };
+const groupSchema = Joi.object({
+    name: Joi.string().required(),
+    permissions: Joi.array().items(Joi.string().valid(...PERMISSIONS))
+});
+
+export { validator, userSchema, groupSchema };

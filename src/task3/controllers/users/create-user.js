@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
-import { UsersService } from '../services';
-import { UsersRepositoryService } from '../data-access';
-import { UsersModel } from '../models';
-import { getUser } from '../utils';
+import { UsersService } from '../../services';
+import { UsersRepositoryService } from '../../data-access';
+import { UsersModel } from '../../models';
+import { getUser } from '../../utils';
 
 const usersService = new UsersService(new UsersRepositoryService(UsersModel));
 

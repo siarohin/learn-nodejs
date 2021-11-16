@@ -1,7 +1,20 @@
 import express from 'express';
-import { validator, userSchema } from './validator';
+import { validator, userSchema, groupSchema } from './validator';
 import { ROUTER_PATH } from './config';
-import { createUser, deleteUser, findUser, getUser, getUsers, updateUser } from './controllers';
+import {
+    createUser,
+    createGroup,
+    deleteUser,
+    deleteGroup,
+    findUser,
+    findGroup,
+    getUser,
+    getGroup,
+    getUsers,
+    getGroups,
+    updateUser,
+    updateGroup
+} from './controllers';
 
 const router = express.Router();
 
@@ -14,5 +27,15 @@ router.route(ROUTER_PATH.user)
 router.route(ROUTER_PATH.users)
     .get(getUsers)
     .post(validator.body(userSchema), createUser);
+
+router.route(ROUTER_PATH.group)
+    .all(findGroup)
+    .get(getGroup)
+    .put(validator.body(groupSchema), updateGroup)
+    .delete(deleteGroup);
+
+router.route(ROUTER_PATH.groups)
+    .get(getGroups)
+    .post(validator.body(groupSchema), createGroup);
 
 export default router;
