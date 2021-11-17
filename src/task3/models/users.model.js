@@ -8,7 +8,7 @@ export const Users = SEQUELIZE().define('Users', {
         primaryKey: true
     },
     login: {
-        type: DataTypes.STRING,
+        type: DataTypes.CITEXT,
         allowNull: false
     },
     password: {
