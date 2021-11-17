@@ -1,8 +1,13 @@
 import _ from 'lodash';
+import { SEQUELIZE } from '../config';
 
 export class UsersService {
     constructor(repository) {
-        this.repository = repository;
+        if (!UsersService.instance) {
+            UsersService.instance = this;
+            this.repository = repository;
+        }
+        return UsersService.instance;
     }
 
     get(id) {
@@ -34,12 +39,24 @@ export class UsersService {
             });
     }
 
-    update(user) {
-        return this.repository.update(user)
+    update(user, transaction) {
+        return this.repository.update(user, transaction)
             .then(() => user) // returns updated user instead of id from response
             .catch(() => {
                 throw new Error('Can not update user');
             });
+    }
+
+    // We need manualy delete users from UserGroups table while user has 'soft' delete behavior through DB
+    delete(user) {
+        return SEQUELIZE().transaction((t) => {
+            return this.repository.get(user.id, { transaction: t })
+                .then((dbUser) => dbUser.removeGroups(dbUser.Groups, { transaction: t }))
+                .then(() => this.update({ ...user, Groups: [] }, { transaction: t })) // Note: map on empty Group to avoid calling get for fresh data
+                .catch(() => {
+                    throw new Error('Transaction failed. Can not delete user');
+                });
+        });
     }
 
     getLimited(users, limit) {

@@ -1,14 +1,21 @@
 export class GroupRepositoryService {
-    constructor(model) {
-        this.model = model;
+    constructor(model, association) {
+        if (!GroupRepositoryService.instance) {
+            GroupRepositoryService.instance = this;
+            this.model = model;
+            this.association = association;
+        }
+        return GroupRepositoryService.instance;
     }
 
-    get(id) {
-        return this.model.findByPk(id);
+    get(id, transaction) {
+        return transaction ? this.model.findByPk(id, transaction) : this.model.findByPk(id, { include: [this.association] });
     }
 
     getAll() {
-        return this.model.findAll();
+        return this.model.findAll({
+            include: [this.association]
+        });
     }
 
     create(group) {

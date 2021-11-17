@@ -1,9 +1,7 @@
-import _ from 'lodash';
 import { DataTypes } from 'sequelize';
 import { SEQUELIZE } from '../config';
 
-
-export const GroupModel = SEQUELIZE().define('Group', {
+export const Group = SEQUELIZE().define('Group', {
     id: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import { GroupService } from '../../services';
 import { GroupRepositoryService } from '../../data-access';
-import { GroupModel } from '../../models';
+import { Group, Users } from '../../models';
 import { getGroup } from '../../utils';
 
-const groupService = new GroupService(new GroupRepositoryService(GroupModel));
+const groupService = new GroupService(new GroupRepositoryService(Group, Users));
 
 export function createGroup(req, res) {
     const newGroup = { ...getGroup(req.body), id: nanoid() };

@@ -1,14 +1,14 @@
 import { DataTypes } from 'sequelize';
 import { SEQUELIZE } from '../config';
 
-export const UsersModel = SEQUELIZE().define('Users', {
+export const Users = SEQUELIZE().define('Users', {
     id: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
     login: {
-        type: DataTypes.CITEXT,
+        type: DataTypes.STRING,
         allowNull: false
     },
     password: {

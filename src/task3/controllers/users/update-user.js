@@ -1,9 +1,9 @@
 import { UsersService } from '../../services';
 import { UsersRepositoryService } from '../../data-access';
-import { UsersModel } from '../../models';
+import { Users, Group } from '../../models';
 import { getUser } from '../../utils';
 
-const usersService = new UsersService(new UsersRepositoryService(UsersModel));
+const usersService = new UsersService(new UsersRepositoryService(Users, Group));
 
 export function updateUser(req, res) {
     const newUser = { ...req.user, ...getUser(req.body) };

@@ -1,8 +1,8 @@
 import { GroupService } from '../../services';
 import { GroupRepositoryService } from '../../data-access';
-import { GroupModel } from '../../models';
+import { Group, Users } from '../../models';
 
-const groupService = new GroupService(new GroupRepositoryService(GroupModel));
+const groupService = new GroupService(new GroupRepositoryService(Group, Users));
 
 export function findGroup(req, res, next) {
     const { id } = req.params;

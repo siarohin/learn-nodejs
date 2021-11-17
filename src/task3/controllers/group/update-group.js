@@ -1,9 +1,9 @@
 import { GroupService } from '../../services';
 import { GroupRepositoryService } from '../../data-access';
-import { GroupModel } from '../../models';
+import { Group, Users } from '../../models';
 import { getGroup } from '../../utils';
 
-const groupService = new GroupService(new GroupRepositoryService(GroupModel));
+const groupService = new GroupService(new GroupRepositoryService(Group, Users));
 
 export function updateGroup(req, res) {
     const newGroup = { ...req.group, ...getGroup(req.body) };

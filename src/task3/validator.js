@@ -19,4 +19,8 @@ const groupSchema = Joi.object({
     permissions: Joi.array().items(Joi.string().valid(...PERMISSIONS))
 });
 
-export { validator, userSchema, groupSchema };
+const addUsersToGroupSchema = Joi.object({
+    userIds: Joi.array().items(Joi.string())
+});
+
+export { validator, userSchema, groupSchema, addUsersToGroupSchema };
