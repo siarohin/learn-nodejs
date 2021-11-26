@@ -1,12 +1,17 @@
 import { Op } from 'sequelize';
 
 export class UsersRepositoryService {
-    constructor(model) {
-        this.model = model;
+    constructor(model, association) {
+        if (!UsersRepositoryService.instance) {
+            UsersRepositoryService.instance = this;
+            this.model = model;
+            this.association = association;
+        }
+        return UsersRepositoryService.instance;
     }
 
     get(id) {
-        return this.model.findByPk(id);
+        return this.model.findByPk(id, { include: [this.association] });
     }
 
     getAll(query) {
@@ -14,16 +19,19 @@ export class UsersRepositoryService {
             ? this.model.findAll({
                 where: {
                     login: { [Op.like]: `%${  query.toLowerCase()  }%` }
-                }
+                },
+                include: [this.association]
             })
-            : this.model.findAll();
+            : this.model.findAll({
+                include: [this.association]
+            });
     }
 
     create(user) {
-        return this.model.create(user);
+        return this.model.create(user, { include: this.association });
     }
 
-    update(user) {
-        return this.model.update(user, { where: { id: user.id } });
+    update(user, transaction = {}) {
+        return this.model.update(user, { where: { id: user.id }, ...transaction });
     }
 }

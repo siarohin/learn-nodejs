@@ -1,26 +1,18 @@
 import { DataTypes } from 'sequelize';
 import { SEQUELIZE } from '../config';
 
-export const Users = SEQUELIZE().define('Users', {
+export const Group = SEQUELIZE().define('Group', {
     id: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
-    login: {
-        type: DataTypes.CITEXT,
-        allowNull: false
-    },
-    password: {
+    name: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    age: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    isDeleted: {
-        type: DataTypes.BOOLEAN,
+    permissions: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false
     }
 }, {

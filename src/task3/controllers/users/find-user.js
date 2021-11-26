@@ -1,8 +1,8 @@
-import { UsersService } from '../services';
-import { UsersRepositoryService } from '../data-access';
-import { UsersModel } from '../models';
+import { UsersService } from '../../services';
+import { UsersRepositoryService } from '../../data-access';
+import { Users, Group } from '../../models';
 
-const usersService = new UsersService(new UsersRepositoryService(UsersModel));
+const usersService = new UsersService(new UsersRepositoryService(Users, Group));
 
 export function findUser(req, res, next) {
     const { id } = req.params;
