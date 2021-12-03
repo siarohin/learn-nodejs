@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import { SEQUELIZE } from '../config';
+import { getName } from '../utils';
+import { UsersError } from './models';
 
 export class UsersService {
     constructor(repository) {
@@ -14,7 +16,7 @@ export class UsersService {
         return this.repository.get(id)
             .then((data) => {
                 if (!data) {
-                    throw new Error(`Can not find user with id ${id}`);
+                    throw new UsersError(`Can not find user with id ${id}`, getName(this.get), arguments);
                 } else {
                     return data.dataValues;
                 }
@@ -27,7 +29,7 @@ export class UsersService {
             .then((users) => _.sortBy(users, ['login']))
             .then((users) => this.getLimited(users, limit))
             .catch(() => {
-                throw new Error('Can not get users');
+                throw new UsersError('Can not get users', getName(this.get), arguments);
             });
     }
 
@@ -35,7 +37,7 @@ export class UsersService {
         return this.repository.create(user)
             .then((data) => data.dataValues)
             .catch(() => {
-                throw new Error('Can not create user');
+                throw new UsersError('Can not create user', getName(this.get), arguments);
             });
     }
 
@@ -43,7 +45,7 @@ export class UsersService {
         return this.repository.update(user, transaction)
             .then(() => user) // returns updated user instead of id from response
             .catch(() => {
-                throw new Error('Can not update user');
+                throw new UsersError('Can not update user', getName(this.get), arguments);
             });
     }
 
@@ -54,7 +56,7 @@ export class UsersService {
                 .then((dbUser) => dbUser.removeGroups(dbUser.Groups, { transaction: t }))
                 .then(() => this.update({ ...user, Groups: [] }, { transaction: t })) // Note: map on empty Group to avoid calling get for fresh data
                 .catch(() => {
-                    throw new Error('Transaction failed. Can not delete user');
+                    throw new UsersError('Transaction failed. Can not delete user', getName(this.get), arguments);
                 });
         });
     }

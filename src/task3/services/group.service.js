@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { SEQUELIZE } from '../config';
-
+import { getName } from '../utils';
+import { GroupError } from './models';
 export class GroupService {
     constructor(repository) {
         if (!GroupService.instance) {
@@ -14,7 +15,7 @@ export class GroupService {
         return this.repository.get(id)
             .then((data) => {
                 if (!data) {
-                    throw new Error(`Can not find group with id ${id}`);
+                    throw new GroupError(`Can not find group with id ${id}`, getName(this.get), arguments);
                 } else {
                     return data.dataValues;
                 }
@@ -25,16 +26,15 @@ export class GroupService {
         return this.repository.getAll()
             .then((data) => _.map(data, 'dataValues'))
             .catch(() => {
-                throw new Error('Can not get groups');
+                throw new GroupError('Can not get groups', getName(this.get), arguments);
             });
     }
 
     create(group) {
         return this.repository.create(group)
             .then((data) => data.dataValues)
-            .catch((err) => {
-                console.log(err);
-                throw new Error('Can not create group');
+            .catch(() => {
+                throw new GroupError('Can not create group', getName(this.get), arguments);
             });
     }
 
@@ -42,7 +42,7 @@ export class GroupService {
         return this.repository.update(group)
             .then(() => group) // returns updated group instead of id from response
             .catch(() => {
-                throw new Error('Can not update group');
+                throw new GroupError('Can not update group', getName(this.get), arguments);
             });
     }
 
@@ -50,7 +50,7 @@ export class GroupService {
         return this.repository.delete(group)
             .then(() => group) // returns updated group instead of empty from response
             .catch(() => {
-                throw new Error('Can not delete group');
+                throw new GroupError('Can not delete group', getName(this.get), arguments);
             });
     }
 
@@ -58,9 +58,8 @@ export class GroupService {
         return SEQUELIZE().transaction((t) => this.repository.get(groupId, { transaction: t })
             .then((group) => group.addUsers(userIds, { transaction: t })))
             .then(() => this.get(groupId))
-            .catch((error) => {
-                console.error('ERROR', error);
-                throw new Error('Transaction failed. Users were not added');
+            .catch(() => {
+                throw new GroupError('Transaction failed. Users were not added', getName(this.get), arguments);
             });
     }
 }
