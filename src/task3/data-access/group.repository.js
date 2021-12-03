@@ -1,11 +1,11 @@
-export class GroupRepositoryService {
+export class GroupRepository {
     constructor(model, association) {
-        if (!GroupRepositoryService.instance) {
-            GroupRepositoryService.instance = this;
+        if (!GroupRepository.instance) {
+            GroupRepository.instance = this;
             this.model = model;
             this.association = association;
         }
-        return GroupRepositoryService.instance;
+        return GroupRepository.instance;
     }
 
     get(id, transaction) {

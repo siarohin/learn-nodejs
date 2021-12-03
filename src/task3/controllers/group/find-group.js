@@ -1,8 +1,10 @@
-import { GroupService } from '../../services';
-import { GroupRepositoryService } from '../../data-access';
+import { GroupService, GroupError } from '../../services';
+import { GroupRepository } from '../../data-access';
 import { Group, Users } from '../../models';
+import { logger } from '../../logger';
+import { getKeyValueString } from '../../utils';
 
-const groupService = new GroupService(new GroupRepositoryService(Group, Users));
+const groupService = new GroupService(new GroupRepository(Group, Users));
 
 export function findGroup(req, res, next) {
     const { id } = req.params;
@@ -11,5 +13,11 @@ export function findGroup(req, res, next) {
             req.group = group;
             next();
         })
-        .catch((error) => res.status(404).send(error.message));
+        .catch((error) => {
+            if (error instanceof GroupError) {
+                logger.error(getKeyValueString({ ...error, message: error.message }));
+                return res.status(404).send(error.message);
+            }
+            return next(error);
+        });
 }

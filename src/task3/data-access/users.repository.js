@@ -1,13 +1,13 @@
 import { Op } from 'sequelize';
 
-export class UsersRepositoryService {
+export class UsersRepository {
     constructor(model, association) {
-        if (!UsersRepositoryService.instance) {
-            UsersRepositoryService.instance = this;
+        if (!UsersRepository.instance) {
+            UsersRepository.instance = this;
             this.model = model;
             this.association = association;
         }
-        return UsersRepositoryService.instance;
+        return UsersRepository.instance;
     }
 
     get(id) {
