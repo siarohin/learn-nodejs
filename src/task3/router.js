@@ -1,6 +1,7 @@
+import cors from 'cors';
 import express from 'express';
 import { validator, userSchema, groupSchema, addUsersToGroupSchema } from './validator';
-import { ROUTER_PATH } from './config';
+import { CORS_OPTIONS, ROUTER_PATH } from './config';
 import {
     addUsersToGroup,
     createUser,
@@ -18,6 +19,7 @@ import {
 } from './controllers';
 
 const router = express.Router();
+router.use(cors(CORS_OPTIONS));
 
 router.route(ROUTER_PATH.user)
     .all(findUser)

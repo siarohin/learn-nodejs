@@ -23,3 +23,11 @@ export const SEQUELIZE = (function getSequelize() {
         return instance;
     };
 }());
+
+export const CORS_OPTIONS = {
+    'origin': '*',
+    'methods': 'GET,PUT,PATCH,POST,DELETE',
+    'preflightContinue': true,
+    'credentials': true,
+    'optionsSuccessStatus': 204
+};

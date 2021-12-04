@@ -7,6 +7,8 @@ import { terminate } from './utils';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.disable('x-powered-by');
+
 app.use(express.json());
 app.use(dataLogger);
 app.use('/api/v1', router);
