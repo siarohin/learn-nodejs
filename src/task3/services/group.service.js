@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { SEQUELIZE } from '../config';
 import { getName } from '../utils';
 import { GroupError } from './models';
+
 export class GroupService {
     constructor(repository) {
         if (!GroupService.instance) {
@@ -26,7 +27,7 @@ export class GroupService {
         return this.repository.getAll()
             .then((data) => _.map(data, 'dataValues'))
             .catch(() => {
-                throw new GroupError('Can not get groups', getName(this.get), arguments);
+                throw new GroupError('Can not get groups', getName(this.getAll), arguments);
             });
     }
 
@@ -34,7 +35,7 @@ export class GroupService {
         return this.repository.create(group)
             .then((data) => data.dataValues)
             .catch(() => {
-                throw new GroupError('Can not create group', getName(this.get), arguments);
+                throw new GroupError('Can not create group', getName(this.create), arguments);
             });
     }
 
@@ -42,7 +43,7 @@ export class GroupService {
         return this.repository.update(group)
             .then(() => group) // returns updated group instead of id from response
             .catch(() => {
-                throw new GroupError('Can not update group', getName(this.get), arguments);
+                throw new GroupError('Can not update group', getName(this.update), arguments);
             });
     }
 
@@ -50,7 +51,7 @@ export class GroupService {
         return this.repository.delete(group)
             .then(() => group) // returns updated group instead of empty from response
             .catch(() => {
-                throw new GroupError('Can not delete group', getName(this.get), arguments);
+                throw new GroupError('Can not delete group', getName(this.delete), arguments);
             });
     }
 
@@ -59,7 +60,7 @@ export class GroupService {
             .then((group) => group.addUsers(userIds, { transaction: t })))
             .then(() => this.get(groupId))
             .catch(() => {
-                throw new GroupError('Transaction failed. Users were not added', getName(this.get), arguments);
+                throw new GroupError('Transaction failed. Users were not added', getName(this.addUsersToGroup), arguments);
             });
     }
 }

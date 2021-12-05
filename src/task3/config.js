@@ -1,6 +1,7 @@
 import process from 'process';
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import { nanoid } from 'nanoid';
 
 dotenv.config();
 
@@ -10,7 +11,8 @@ export const ROUTER_PATH = {
     user: '/user/:id',
     users: '/users',
     group: '/group/:id',
-    groups: '/groups'
+    groups: '/groups',
+    authenticate: '/login'
 };
 
 export const SEQUELIZE = (function getSequelize() {
@@ -31,3 +33,5 @@ export const CORS_OPTIONS = {
     'credentials': true,
     'optionsSuccessStatus': 204
 };
+
+export const TOKEN_SECRET = process.env.TOKEN_SECRET || nanoid(48);
