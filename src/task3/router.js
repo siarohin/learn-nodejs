@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import { validator, userSchema, groupSchema, addUsersToGroupSchema, authenticateSchema } from './validator';
+import { validator, userSchema, groupSchema, addUsersToGroupSchema, authenticateSchema, refreshTokenSchema } from './validator';
 import { CORS_OPTIONS, ROUTER_PATH } from './config';
 import {
     addUsersToGroup,
@@ -17,7 +17,9 @@ import {
     getGroups,
     updateUser,
     updateGroup,
-    verifyAccess
+    verifyAccess,
+    refresh as refreshToken,
+    reject as rejectToken
 } from './controllers';
 
 const router = express.Router();
@@ -46,5 +48,9 @@ router.route(ROUTER_PATH.groups)
 
 router.route(ROUTER_PATH.authenticate)
     .post(validator.body(authenticateSchema), authenticate);
+
+router.route(ROUTER_PATH.token)
+    .post(validator.body(refreshTokenSchema), refreshToken)
+    .delete(verifyAccess, validator.body(refreshTokenSchema), rejectToken);
 
 export default router;

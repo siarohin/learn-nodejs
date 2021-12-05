@@ -1,8 +1,8 @@
-import { getKeyValueString } from '../utils';
-import { AuthService, AuthError } from '../services';
-import { logger } from '../logger';
-import { UsersRepository } from '../data-access';
-import { Group, Users } from '../models';
+import { getKeyValueString } from '../../utils';
+import { AuthService, AuthError } from '../../services';
+import { logger } from '../../logger';
+import { UsersRepository } from '../../data-access';
+import { Group, Users } from '../../models';
 
 const authService = new AuthService(new UsersRepository(Users, Group));
 

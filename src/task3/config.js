@@ -12,7 +12,8 @@ export const ROUTER_PATH = {
     users: '/users',
     group: '/group/:id',
     groups: '/groups',
-    authenticate: '/login'
+    authenticate: '/login',
+    token: '/token'
 };
 
 export const SEQUELIZE = (function getSequelize() {
@@ -34,4 +35,10 @@ export const CORS_OPTIONS = {
     'optionsSuccessStatus': 204
 };
 
-export const TOKEN_SECRET = process.env.TOKEN_SECRET || nanoid(48);
+export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || nanoid(48);
+
+export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || nanoid(64);
+
+export const ACCESS_TOKEN_DURATION = process.env.ACCESS_TOKEN_DURATION || '10m';
+
+export const REFRESH_TOKEN_DURATION = process.env.REFRESH_TOKEN_DURATION || '1d';

@@ -30,4 +30,8 @@ const authenticateSchema = Joi.object({
     password: PASSWORD_SCHEMA
 });
 
-export { validator, userSchema, groupSchema, addUsersToGroupSchema, authenticateSchema };
+const refreshTokenSchema = Joi.object({
+    refreshToken: Joi.string().required()
+});
+
+export { validator, userSchema, groupSchema, addUsersToGroupSchema, authenticateSchema, refreshTokenSchema };

@@ -1,6 +1,7 @@
 export const AuthErrorType = {
     Unauthorized: 'Unauthorized',
-    Forbidden: 'Forbidden'
+    Forbidden: 'Forbidden',
+    NotFound: 'NotFound'
 };
 Object.freeze(AuthErrorType);
 
