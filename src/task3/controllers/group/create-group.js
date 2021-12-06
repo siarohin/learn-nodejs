@@ -1,15 +1,11 @@
 import { nanoid } from 'nanoid';
-import { GroupService, GroupError } from '../../services';
-import { GroupRepository } from '../../data-access';
-import { Group, Users } from '../../models';
+import { GroupError, groupServiceInstance } from '../../services';
 import { logger } from '../../logger';
 import { getKeyValueString, getGroup } from '../../utils';
 
-const groupService = new GroupService(new GroupRepository(Group, Users));
-
 export function createGroup(req, res, next) {
     const newGroup = { ...getGroup(req.body), id: nanoid() };
-    return groupService.create(newGroup)
+    return groupServiceInstance.create(newGroup)
         .then((group) => res.send(group))
         .catch((error) => {
             if (error instanceof GroupError) {

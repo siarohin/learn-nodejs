@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 dotenv.config();
 
-const DB_CONNECTION = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@fanny.db.elephantsql.com/${process.env.DB_NAME}`;
+const DB_CONNECTION = `${process.env.DB_DIALECT}://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
 export const ROUTER_PATH = {
     user: '/user/:id',
