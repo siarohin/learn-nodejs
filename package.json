@@ -10,9 +10,11 @@
   "license": "ISC",
   "scripts": {
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "start": "nodemon --exec npm run babel-node -- ./src/index.js",
+    "start": "nodemon --exec ./node_modules/.bin/babel-node -- ./src/index.js",
     "lint": "eslint -c .eslintrc.js ./src/**/*.js",
-    "lint-fix": "npm run lint --fix"
+    "lint-fix": "npm run lint --fix",
+    "test": "jest --verbose --detectOpenHandles",
+    "test:coverage": "jest --silent --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -21,7 +23,10 @@
     "@babel/preset-env": "^7.15.6",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
-    "nodemon": "^2.0.13"
+    "jest": "^27.4.3",
+    "jest-html-reporters": "^2.1.6",
+    "nodemon": "^2.0.13",
+    "regenerator-runtime": "^0.13.9"
   },
   "dependencies": {
     "cors": "^2.8.5",

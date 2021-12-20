@@ -1,14 +1,10 @@
-import { UsersService, UsersError } from '../../services';
-import { UsersRepository } from '../../data-access';
-import { Users, Group } from '../../models';
+import { UsersError, usersServiceInstance } from '../../services';
 import { logger } from '../../logger';
 import { getKeyValueString, getUser } from '../../utils';
 
-const usersService = new UsersService(new UsersRepository(Users, Group));
-
 export function deleteUser(req, res, next) {
     const newUser = { ...req.user, ...getUser(req.body, { isDeleted: true }) };
-    return usersService.delete(newUser)
+    return usersServiceInstance.delete(newUser)
         .then((user) => res.send(user))
         .catch(error => {
             if (error instanceof UsersError) {

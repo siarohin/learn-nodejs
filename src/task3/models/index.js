@@ -5,6 +5,6 @@ import { SEQUELIZE } from '../config';
 Users.belongsToMany(Group, { through: 'GroupUsers' });
 Group.belongsToMany(Users, { through: 'GroupUsers' });
 
-SEQUELIZE().sync();
+SEQUELIZE().sync().catch(() => SEQUELIZE().close());
 
 export { Users, Group };

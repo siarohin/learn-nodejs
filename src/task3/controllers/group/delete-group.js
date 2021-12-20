@@ -1,13 +1,9 @@
-import { GroupService, GroupError } from '../../services';
-import { GroupRepository } from '../../data-access';
-import { Group, Users } from '../../models';
+import { GroupError, groupServiceInstance } from '../../services';
 import { logger } from '../../logger';
 import { getKeyValueString } from '../../utils';
 
-const groupService = new GroupService(new GroupRepository(Group, Users));
-
 export function deleteGroup(req, res, next) {
-    return groupService.delete(req.group)
+    return groupServiceInstance.delete(req.group)
         .then((group) => res.send(group))
         .catch(error => {
             if (error instanceof GroupError) {

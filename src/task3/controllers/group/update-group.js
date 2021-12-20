@@ -1,14 +1,10 @@
-import { GroupService, GroupError } from '../../services';
-import { GroupRepository } from '../../data-access';
-import { Group, Users } from '../../models';
+import { GroupError, groupServiceInstance } from '../../services';
 import { getGroup, getKeyValueString } from '../../utils';
 import { logger } from '../../logger';
 
-const groupService = new GroupService(new GroupRepository(Group, Users));
-
 export function updateGroup(req, res, next) {
     const newGroup = { ...req.group, ...getGroup(req.body) };
-    return groupService.update(newGroup)
+    return groupServiceInstance.update(newGroup)
         .then((group) => res.send(group))
         .catch(error => {
             if (error instanceof GroupError) {

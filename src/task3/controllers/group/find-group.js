@@ -1,14 +1,10 @@
-import { GroupService, GroupError } from '../../services';
-import { GroupRepository } from '../../data-access';
-import { Group, Users } from '../../models';
+import { GroupError, groupServiceInstance } from '../../services';
 import { logger } from '../../logger';
 import { getKeyValueString } from '../../utils';
 
-const groupService = new GroupService(new GroupRepository(Group, Users));
-
 export function findGroup(req, res, next) {
     const { id } = req.params;
-    return groupService.get(id)
+    return groupServiceInstance.get(id)
         .then((group) => {
             req.group = group;
             next();

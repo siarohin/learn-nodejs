@@ -1,14 +1,10 @@
-import { UsersService, UsersError } from '../../services';
-import { UsersRepository } from '../../data-access';
-import { Users, Group } from '../../models';
+import { UsersError, usersServiceInstance } from '../../services';
 import { logger } from '../../logger';
 import { getKeyValueString } from '../../utils';
 
-const usersService = new UsersService(new UsersRepository(Users, Group));
-
 export function findUser(req, res, next) {
     const { id } = req.params;
-    return usersService.get(id)
+    return usersServiceInstance.get(id)
         .then((user) => {
             req.user = user;
             next();
