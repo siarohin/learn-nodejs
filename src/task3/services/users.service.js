@@ -29,7 +29,7 @@ export class UsersService {
             .then((users) => _.sortBy(users, ['login']))
             .then((users) => this.getLimited(users, limit))
             .catch(() => {
-                throw new UsersError('Can not get users', getName(this.get), arguments);
+                throw new UsersError('Can not get users', getName(this.getAll), arguments);
             });
     }
 
@@ -37,7 +37,7 @@ export class UsersService {
         return this.repository.create(user)
             .then((data) => data.dataValues)
             .catch(() => {
-                throw new UsersError('Can not create user', getName(this.get), arguments);
+                throw new UsersError('Can not create user', getName(this.create), arguments);
             });
     }
 
@@ -45,7 +45,7 @@ export class UsersService {
         return this.repository.update(user, transaction)
             .then(() => user) // returns updated user instead of id from response
             .catch(() => {
-                throw new UsersError('Can not update user', getName(this.get), arguments);
+                throw new UsersError('Can not update user', getName(this.update), arguments);
             });
     }
 
@@ -56,7 +56,7 @@ export class UsersService {
                 .then((dbUser) => dbUser.removeGroups(dbUser.Groups, { transaction: t }))
                 .then(() => this.update({ ...user, Groups: [] }, { transaction: t })) // Note: map on empty Group to avoid calling get for fresh data
                 .catch(() => {
-                    throw new UsersError('Transaction failed. Can not delete user', getName(this.get), arguments);
+                    throw new UsersError('Transaction failed. Can not delete user', getName(this.delete), arguments);
                 });
         });
     }

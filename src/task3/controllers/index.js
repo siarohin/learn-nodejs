@@ -1,3 +1,4 @@
+export * from './token';
 export * from './users';
 export * from './group';
 export * from './joi-error-logger';
